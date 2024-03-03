@@ -1,8 +1,8 @@
 
 function Footer() {
   return (
-    <div>
-        <p>Developed By Reza :)</p>
+    <div className="bg-slate-200 py-1">
+        <p className="text-center">Developed By Reza :)</p>
     </div>
   )
 }
