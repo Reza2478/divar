@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import NotFound from "pages/404";
 import AdminPage from "pages/AdminPage";
@@ -13,16 +13,32 @@ function Router() {
     queryKey: "profile",
     queryFn: getProfile,
   });
+
   console.log({ data, isLoading, error });
 
-  if (isLoading) <h1>Loading ...</h1>;
+  if (isLoading) return <h1>Loading ...</h1>;
 
   return (
     <Routes>
       <Route index element={<HomePage />} />
-      <Route path="/auth" element={<AuthPage />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/admin" element={<AdminPage />} />
+      <Route
+        path="/auth"
+        element={data ? <Navigate to="/dashboard" /> : <AuthPage />}
+      />
+      <Route
+        path="/dashboard"
+        element={data ? <DashboardPage /> : <Navigate to="/auth" />}
+      />
+      <Route
+        path="/admin"
+        element={
+          data && data.data.role === "ADMIN" ? (
+            <AdminPage />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

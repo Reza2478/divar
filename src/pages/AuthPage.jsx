@@ -5,9 +5,19 @@ import { useFormik } from "formik";
 import { checkOtp, sendOtp } from "services/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { setCookie } from "utils/cookie";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import getProfile from "services/user";
 
 function AuthPage() {
   const [step, setStep] = useState(1);
+
+  const { refetch } = useQuery({
+    queryKey: "profile",
+    queryFn: getProfile,
+  });
+
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -41,6 +51,8 @@ function AuthPage() {
         if (response) {
           toast.success(response.data.message);
           setCookie(response.data);
+          navigate("/");
+          refetch();
         }
         if (error) toast.error(error.response.data.message);
         console.log({ response, error });
