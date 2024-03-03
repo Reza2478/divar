@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 
-function SendOtpForm({ formik, setStep }) {
+function SendOtpForm({ formik }) {
   return (
     <form onSubmit={formik.handleSubmit}>
       <p>ورود به حساب کاربری</p>
@@ -16,7 +16,8 @@ function SendOtpForm({ formik, setStep }) {
         name="mobile"
         onChange={formik.handleChange}
       />
-      <button type="submit">تایید</button>
+      <p style={{ color: "red", fontSize: "12px" }}>{formik.errors.mobile}</p>
+      <button type="submit">ارسال کد تایید</button>
     </form>
   );
 }
