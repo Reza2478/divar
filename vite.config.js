@@ -3,10 +3,11 @@ import react from "@vitejs/plugin-react";
 
 const paths = [
   "src",
-  "assets", 
+  "assets",
   "components",
   "configs",
   "pages",
+  "layouts",
   "router",
   "services",
   "styles",
@@ -19,10 +20,13 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      ...paths.reduce((acc,cur)=>({
-        ...acc,
-        [cur] :`/${cur==="src" ?cur :"src/"+cur }`
-      }),"")
+      ...paths.reduce(
+        (acc, cur) => ({
+          ...acc,
+          [cur]: `/${cur === "src" ? cur : "src/" + cur}`,
+        }),
+        ""
+      ),
     },
   },
 });
