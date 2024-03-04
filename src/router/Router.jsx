@@ -14,8 +14,6 @@ function Router() {
     queryFn: getProfile,
   });
 
-  console.log({ data, isLoading, error });
-
   if (isLoading) return <h1>Loading ...</h1>;
 
   return (
