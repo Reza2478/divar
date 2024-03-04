@@ -6,7 +6,7 @@ import AuthPage from "pages/AuthPage";
 import DashboardPage from "pages/DashboardPage";
 import HomePage from "pages/HomePage";
 import { useQuery } from "@tanstack/react-query";
-import getProfile from "services/user";
+import {getProfile} from "services/user";
 
 function Router() {
   const { data, isLoading, error } = useQuery({

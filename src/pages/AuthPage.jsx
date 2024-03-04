@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { setCookie } from "utils/cookie";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import getProfile from "services/user";
+import {getProfile} from "services/user";
 
 function AuthPage() {
   const [step, setStep] = useState(1);
