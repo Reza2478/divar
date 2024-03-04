@@ -1,9 +1,11 @@
-import React from 'react'
+import AddPost from "components/templates/Addpost";
 
 function DashboardPage() {
   return (
-    <div>DashboardPage</div>
-  )
+    <div className="py-4">
+      <AddPost />
+    </div>
+  );
 }
 
-export default DashboardPage
+export default DashboardPage;
