@@ -26,7 +26,10 @@ function AuthPage() {
     },
     validate: (values) => {
       const errors = {};
-      if (values.mobile.length !== 11) {
+      if (step === 1 && values.mobile === "") {
+        errors.mobile = "شماره موبایل را وارد کنید";
+      }
+      else if (step === 1 && values.mobile.length !== 11) {
         errors.mobile = "شماره موبایل شما باید 11 کاراکتر باشد !";
       }
       if (step === 2 && values.code.length !== 5) {
@@ -61,11 +64,11 @@ function AuthPage() {
   });
 
   return (
-    <>
+    <div className="flex justify-center items-center h-full">
       {step === 1 && <SendOtpForm formik={formik} />}
       {step === 2 && <CheckOtpForm setStep={setStep} formik={formik} />}
       <Toaster />
-    </>
+    </div>
   );
 }
 
