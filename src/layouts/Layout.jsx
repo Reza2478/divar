@@ -5,7 +5,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <div className="h-full">{children}</div>
+      <div className="h-full min-h-[800px] py-8">{children}</div>
       <Footer />
     </>
   );

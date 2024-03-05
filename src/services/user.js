@@ -2,6 +2,8 @@ import api from "configs/api";
 
 const getProfile = () => api.get("user/whoami").then((res) => res || false);
 
-const getPosts = () => api.ger("post/my");
+const getPosts = () => api.get("post/my");
 
-export { getProfile, getPosts };
+const getAllPosts = () => api.get("");
+
+export { getProfile, getPosts, getAllPosts };

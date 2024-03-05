@@ -3,10 +3,15 @@ import axios from "axios";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import { getCategory } from "services/admin";
+import { getPosts } from "services/user";
 import { getCookie } from "utils/cookie";
 
 function AddPost() {
   const { data } = useQuery({ queryKey: "categories", queryFn: getCategory });
+  const { refetch } = useQuery({
+    queryKey: "posts",
+    queryFn: getPosts,
+  });
 
   const initialValues = {
     title: "",
@@ -59,7 +64,10 @@ function AddPost() {
             Authorization: `bearer ${accessToken}`,
           },
         })
-        .then((res) => toast.success(res.data.message))
+        .then((res) => {
+          toast.success(res.data.message);
+          refetch();
+        })
         .catch((err) => toast.error("خطایی پیش آمده است!"));
 
       console.log(formik.values);
