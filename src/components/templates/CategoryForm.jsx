@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
-import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { addCategory } from "services/admin";
 
@@ -13,14 +12,13 @@ function CategoryForm() {
     icon: "",
   };
 
-  const { mutate, data } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: addCategory,
-    onSuccess: () => queryClient.invalidateQueries("categories"),
+    onSuccess: (data) => {
+      toast.success(data.data.message);
+      queryClient.invalidateQueries("categories");
+    },
   });
-
-  useEffect(() => {
-    if (data && data.status===201) toast.success(data.data.message);
-  }, [data]);
 
   const formik = useFormik({
     initialValues,

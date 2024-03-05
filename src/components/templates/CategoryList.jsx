@@ -1,7 +1,6 @@
 import { BsTrash3Fill } from "react-icons/bs";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategory, deleteCategory } from "services/admin";
-import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 function CategoryList() {
@@ -12,15 +11,13 @@ function CategoryList() {
 
   const queryClient = useQueryClient();
 
-  const deleteItem = useMutation({
+  const { mutate } = useMutation({
     mutationFn: deleteCategory,
-    onSuccess: () => queryClient.invalidateQueries("categories"),
+    onSuccess: (data) => {
+      toast.success(data.data.message);
+      queryClient.invalidateQueries("categories");
+    },
   });
-
-  useEffect(() => {
-    if (deleteItem.status === "success")
-      toast.success(deleteItem.data.data.message);
-  }, [deleteItem.status]);
 
   return (
     <div>
@@ -39,7 +36,7 @@ function CategoryList() {
 
             <div className="flex justify-center items-center gap-2">
               <BsTrash3Fill
-                onClick={() => deleteItem.mutate(category._id)}
+                onClick={() => mutate(category._id)}
                 className="text-gray-500 cursor-pointer"
               />
               <p>slug: {category.slug}</p>
